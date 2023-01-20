@@ -1,0 +1,190 @@
+<nav class="navbar bg-light sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">AquaManager</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">AquaManager</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <span class="mx-auto text-muted">
+            Controller status: <% if(status == false) {%>
+            <span class="rounded-pill px-3" style="background-color: lightcoral"
+              >Offline</span
+            >
+            <% }else{ %>
+            <span
+              class="rounded-pill px-3"
+              style="background-color: lightgreen"
+            >
+              Online
+            </span>
+            <% } %>
+          </span>
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/edit">Settings</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              QuickActions <% if(config.filter.manual || config.light.manual ||
+              config.pump.manual){ %>
+              <div
+                class="rounded-pill p-1"
+                style="background-color: lightcoral; display: inline"
+              >
+                Manual
+              </div>
+              <% }else{ %>
+              <div
+                class="rounded-pill p-1"
+                style="background-color: lightgreen; display: inline"
+              >
+                Auto
+              </div>
+              <% } %>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item">
+                <a class="text-dark" href="/manual?q=light">Light</a><%
+                if(config.light.manual ){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Manual
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  Auto
+                </div>
+                <% } %> <% if(currStatus.light == false){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Off
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  On
+                </div>
+                <% } %>
+              </li>
+              <li class="dropdown-item">
+                <a class="text-dark" href="/manual?q=pump">Circulation</a>
+                <% if(config.pump.manual ){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Manual
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  Auto
+                </div>
+                <% } %> <% if(currStatus.pump == false){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Off
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  On
+                </div>
+                <% } %>
+              </li>
+              <li class="dropdown-item">
+                <a class="text-dark" href="/manual?q=filter">Filter</a>
+                <% if(config.filter.manual ){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Manual
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  Auto
+                </div>
+                <% } %> <% if(currStatus.filter == false){ %>
+                <div
+                  class="mx-auto rounded-pill p-1"
+                  style="background-color: lightcoral; display: inline"
+                >
+                  Off
+                </div>
+                <% }else{ %>
+                <div
+                  class="rounded-pill p-1"
+                  style="background-color: lightgreen; display: inline"
+                >
+                  On
+                </div>
+                <% } %>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li class="p-1">
+                Clicking above buttons will enable manual override
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <img
+        src="images/Fish bowl-pana.svg"
+        alt="Fish in a bowl"
+        class="container-fluid"
+      />
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,18 @@
+{
+  "name": "aquamanager",
+  "version": "1.0.0",
+  "description": "Smart manager for Aquarium",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Piyush Terkar",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.18.2",
+    "express-status-monitor": "^1.3.4",
+    "ip": "^1.1.8"
+  }
+}

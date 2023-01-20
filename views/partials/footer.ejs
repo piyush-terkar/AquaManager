@@ -1,0 +1,19 @@
+<footer class="footer bg-light py-3 mt-auto">
+  <div class="container d-flex">
+    <span class="text-muted"
+      >&copy;AquaManager 2021 <br />
+      Developed by: Piyush Terkar</span
+    >
+    <span class="mx-auto text-muted">
+      Controller: <% if(status == false) {%>
+      <span class="rounded-pill px-3" style="background-color: lightcoral"
+        >Offline</span
+      >
+      <% }else{ %>
+      <span class="rounded-pill px-3" style="background-color: lightgreen">
+        Online
+      </span>
+      <% } %>
+    </span>
+  </div>
+</footer>

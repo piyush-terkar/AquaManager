@@ -1,0 +1,108 @@
+<% layout('layout/boilerplate')%>
+<h1>Settings:</h1>
+<img
+  src="images/Fish bowl-amico.svg"
+  alt="Fish in a bowl"
+  class="container-fluid"
+/>
+<hr />
+<h3>Maintainance Mode:</h3>
+<hr />
+<form
+  action="/maintainance"
+  method="post"
+  class="form-control"
+  id="form-maintain"
+>
+  <div class="form-check form-switch">
+    <label class="form-check-label" for="flexSwitchCheckDefault"
+      >Maintanance Mode</label
+    >
+    <input
+      class="form-check-input"
+      type="checkbox"
+      role="switch"
+      id="flexSwitchCheckDefault"
+      name="maintainance"
+    />
+    <p id="maintainance-value" style="display: none">
+      <%=currStatus.maintainance%>
+    </p>
+    <script>
+      const maintainance = document.querySelector("#flexSwitchCheckDefault");
+      const value = document.querySelector("#maintainance-value").innerHTML;
+      if (value.trim() == "true") {
+        maintainance.checked = true;
+      } else {
+        maintainance.checked = false;
+      }
+      maintainance.addEventListener("change", () => {
+        document.querySelector("#form-maintain").submit();
+      });
+    </script>
+  </div>
+</form>
+<h3 class="mt-3">Automation Settings:</h3>
+<hr />
+<form action="/edit" method="post" class="form-control mb-2">
+  <h4 class="mt-3">Filter:</h4>
+  <hr />
+  <label for="fstart">Start at:</label>
+  <input
+    type="time"
+    name="filter[start]"
+    id="fstart"
+    class="form-control"
+    value="<%= config.filter.start%>"
+  />
+  <label for="fend">End at:</label>
+  <input
+    type="time"
+    name="filter[end]"
+    id="fend"
+    class="form-control"
+    value="<%= config.filter.end%>"
+  />
+  <h4 class="mt-3">Light:</h4>
+  <hr />
+  <label for="lstart">Start at:</label>
+  <input
+    type="time"
+    name="light[start]"
+    id="lstart"
+    class="form-control"
+    value="<%= config.light.start%>"
+  />
+  <label for="lend">End at:</label>
+  <input
+    type="time"
+    name="light[end]"
+    id="lend"
+    class="form-control"
+    value="<%= config.light.end%>"
+  />
+  <h4 class="mt-3">Pump:</h4>
+  <hr />
+  <label for="pstart">Start at:</label>
+  <input
+    type="time"
+    name="pump[start]"
+    id="pstart"
+    class="form-control"
+    value="<%= config.pump.start%>"
+  />
+  <label for="lend">End at:</label>
+  <input
+    type="time"
+    name="pump[end]"
+    id="pend"
+    class="form-control"
+    value="<%= config.pump.end%>"
+  />
+  <hr />
+  <input
+    type="submit"
+    class="btn btn-success form-control"
+    value="Apply Changes"
+  />
+</form>
