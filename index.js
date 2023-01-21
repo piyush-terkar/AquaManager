@@ -65,7 +65,11 @@ setInterval(() => {
   const status = JSON.parse(fs.readFileSync("./status.json"));
   const settings = JSON.parse(fs.readFileSync("./settings.json"));
   let date = new Date();
-  let currtime = date.toLocaleTimeString();
+  let currtime = date.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   let isChanged = false;
   if (!status.maintainance) {
     if (
