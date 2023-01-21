@@ -1,1 +1,1 @@
-{"filter":{"start":"11:30","end":"23:59","manual":false},"light":{"start":"14:00","end":"22:00","manual":false},"pump":{"start":"07:00","end":"23:58","manual":false}}
+{"filter":{"start":"13:30","end":"23:59"},"light":{"start":"14:00","end":"22:00"},"pump":{"start":"07:00","end":"23:58"}}

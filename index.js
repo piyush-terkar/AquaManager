@@ -69,7 +69,7 @@ setInterval(() => {
   let isChanged = false;
   if (!status.maintainance) {
     if (
-      status.filter !==
+      status.filter !=
         (settings.filter.start <= currtime &&
           settings.filter.end >= currtime) &&
       !settings.filter.manual
@@ -79,16 +79,17 @@ setInterval(() => {
       isChanged = true;
     }
     if (
-      status.light !==
+      status.light !=
         (settings.light.start <= currtime && settings.light.end >= currtime) &&
       !settings.light.manual
     ) {
       status.light =
         settings.light.start <= currtime && settings.light.end >= currtime;
       isChanged = true;
+      console.log(currtime);
     }
     if (
-      status.pump !==
+      status.pump !=
         (settings.pump.start <= currtime && settings.pump.end >= currtime) &&
       !settings.pump.manual
     ) {
@@ -98,6 +99,7 @@ setInterval(() => {
     }
     if (isChanged) {
       console.log("status changed", status);
+      console.log(currtime);
       status.maintainance = status.maintainance;
       fs.writeFileSync("./status.json", JSON.stringify(status));
     }
