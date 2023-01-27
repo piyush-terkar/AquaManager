@@ -28,8 +28,9 @@ socket.maxConnections = 1;
 
 socket.on("connection", (sock) => {
   sock.setKeepAlive(true, 1000);
-  const unsetConnection = () => {
-    console.log("Controller closed connection");
+  console.log("[+] Controller Connected");
+  const unsetConnection = (event) => {
+    console.log(`[${event}] Controller closed connection`);
     CONNECTION = false;
   };
   sock.on("close", unsetConnection);
@@ -47,7 +48,7 @@ socket.on("connection", (sock) => {
     "./status.json",
     { bigint: false, persistent: true, interval: 1000 },
     (curr, prev) => {
-      console.log("State change detected, Commiting changes to controller");
+      console.log("[*]State change detected, Commiting changes to controller");
       if (CONNECTION) {
         const status = JSON.stringify(
           JSON.parse(fs.readFileSync("./status.json"))
@@ -55,7 +56,7 @@ socket.on("connection", (sock) => {
         console.log(status);
         sock.write(status + "\n");
       } else {
-        console.log("Changes to be committed");
+        console.log("[-]Changes to be committed");
       }
     }
   );
@@ -90,7 +91,7 @@ setInterval(() => {
       status.light =
         settings.light.start <= currtime && settings.light.end >= currtime;
       isChanged = true;
-      console.log(currtime);
+      console.log("[*]" + currtime);
     }
     if (
       status.pump !=
@@ -102,8 +103,8 @@ setInterval(() => {
       isChanged = true;
     }
     if (isChanged) {
-      console.log("status changed", status);
-      console.log(currtime);
+      console.log("[*]status changed:", status);
+      console.log("[*]" + currtime);
       status.maintainance = status.maintainance;
       fs.writeFileSync("./status.json", JSON.stringify(status));
     }
@@ -165,7 +166,6 @@ app.get("/manual", (req, res) => {
       config.filter.manual = false;
     }
   }
-  console.log(config);
   fs.writeFileSync("./status.json", JSON.stringify(status));
   fs.writeFileSync("./settings.json", JSON.stringify(config));
   res.redirect("/");
