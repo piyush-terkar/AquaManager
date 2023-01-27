@@ -42,10 +42,10 @@ socket.on("connection", (sock) => {
     console.log(data);
   });
   CONNECTION = true;
-  sock.write(syncData);
+  sock.write(syncData + "\n");
   fs.watchFile(
     "./status.json",
-    { bigint: false, persistent: true, interval: 500 },
+    { bigint: false, persistent: true, interval: 1000 },
     (curr, prev) => {
       console.log("State change detected, Commiting changes to controller");
       if (CONNECTION) {
@@ -53,7 +53,7 @@ socket.on("connection", (sock) => {
           JSON.parse(fs.readFileSync("./status.json"))
         );
         console.log(status);
-        sock.write(status);
+        sock.write(status + "\n");
       } else {
         console.log("Changes to be committed");
       }
