@@ -54,7 +54,11 @@ socket.on("connection", (sock) => {
           JSON.parse(fs.readFileSync("./status.json"))
         );
         console.log(status);
+        sock.cork();
         sock.write(status + "\n");
+        process.nextTick(() => {
+          sock.uncork();
+        });
       } else {
         console.log("[-]Changes to be committed");
       }
