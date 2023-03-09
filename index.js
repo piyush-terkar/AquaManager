@@ -28,6 +28,7 @@ socket.maxConnections = 1;
 
 socket.on("connection", (sock) => {
   sock.setKeepAlive(true, 1000);
+  sock.setNoDelay(true);
   console.log("[+] Controller Connected");
   const unsetConnection = (event) => {
     console.log(`[${event}] Controller closed connection`);
