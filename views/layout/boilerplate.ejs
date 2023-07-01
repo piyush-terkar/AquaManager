@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
-    <title>AquaManager</title>
-  </head>
-  <body class="d-flex flex-column vh-100">
-    <%- include('../partials/navbar') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible"
+    content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <link href="/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <link rel="manifest"
+    href="/manifest.webmanifest" />
+  <link rel="shortcut icon"
+    href="/images/icon.svg"
+    type="image/x-icon" />
+  <link rel="apple-touch-icon"
+    href="/images/icon192.png" />
+  <meta name="theme-color"
+    media="(prefers-color-scheme: light)"
+    content="black" />
+  <meta name="theme-color"
+    media="(prefers-color-scheme: dark)"
+    content="black" />
+  <title>AquaManager</title>
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('../partials/navbar')
+    %>
     <main class="container mt-5">
-      <%- //include('../partials/flash') %> <%- body %>
+      <%- //include('../partials/flash')
+        %> <%- body
+          %>
     </main>
-    <%- include('../partials/footer') %>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"
-    ></script>
-    <script src="/javascripts/bootstrap.min.js"></script>
-  </body>
+    <%- include('../partials/footer')
+      %>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+      <script src="/javascripts/bootstrap.min.js"></script>
+      <script src="/javascripts/pwa.js"></script>
+</body>
+
 </html>
