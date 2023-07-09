@@ -209,6 +209,6 @@ const credentials = {
 };
 
 const server = https.createServer(credentials, app);
-server.listen(PORT, IP, () => {
+server.listen(PORT, () => {
   console.log(`listening on ${IP}:${PORT}`);
 });
