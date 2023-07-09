@@ -4,6 +4,8 @@ const app = express();
 const ip = require("ip");
 const ejsMate = require("ejs-mate");
 const fs = require("fs");
+const https = require("https");
+
 app.use(require("express-status-monitor")());
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -201,6 +203,12 @@ app.post("/maintainance", async (req, res) => {
   res.redirect("/");
 });
 
-app.listen(PORT, IP, () => {
+const credentials = {
+  key: fs.readFileSync("certificates/apache-selfsigned.key"),
+  cert: fs.readFileSync("certificates/apache-selfsigned.crt"),
+};
+
+const server = https.createServer(credentials, app);
+server.listen(PORT, IP, () => {
   console.log(`listening on ${IP}:${PORT}`);
 });
