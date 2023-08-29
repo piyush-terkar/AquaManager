@@ -2,7 +2,7 @@
 # 🐟 AquaManager: Planted Aquarium Automation System
 
 <!-- Project Description -->
-AquaManager is an automation system designed to control and manage the equipment of a planted aquarium, such as filters, pumps, and lights. The system provides a user-friendly interface to monitor and control aquarium components remotely. It utilizes the MEN stack (MongoDB, Express.js, Node.js) and integrates with an Arduino board for communication with the aquarium equipment.
+AquaManager is an automation system designed to control and manage the equipment of a planted aquarium, such as filters, pumps, and lights. The system provides a user-friendly interface to monitor and control aquarium components remotely. It utilizes Express.js, Node.js and integrates with an Arduino board for communication with the aquarium equipment.
 
 ## 🔆 Features
 
