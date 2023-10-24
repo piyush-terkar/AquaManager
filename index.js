@@ -16,58 +16,63 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 let CONNECTION = false;
-const net = require("net");
-const SOCKPORT = 3030;
 const PORT = 3000;
 const IP = ip.address();
 
-const socket = net.createServer();
-socket.listen(SOCKPORT, IP, () => {
-  console.log(`Waiting for Controller on ${IP}:${SOCKPORT}`);
-});
+const toggleConnection = () => {
+  CONNECTION = false;
+};
 
-socket.maxConnections = 1;
+// const net = require("net");
+// const SOCKPORT = 3030;
 
-socket.on("connection", (sock) => {
-  sock.setKeepAlive(true, 1000);
-  sock.setNoDelay(true);
-  console.log("[+] Controller Connected");
-  const unsetConnection = (event) => {
-    console.log(`[${event}] Controller closed connection`);
-    CONNECTION = false;
-  };
-  sock.on("close", unsetConnection);
-  sock.on("error", unsetConnection);
-  sock.on("end", unsetConnection);
-  const syncData = JSON.stringify(JSON.parse(fs.readFileSync("./status.json")));
-  sock.on("data", (data) => {
-    sock.write("sync");
-    fs.writeFileSync("./status.json", syncData);
-    console.log(data);
-  });
-  CONNECTION = true;
-  sock.write(syncData + "\n");
-  fs.watchFile(
-    "./status.json",
-    { bigint: false, persistent: true, interval: 1000 },
-    (curr, prev) => {
-      console.log("[*]State change detected, Commiting changes to controller");
-      if (CONNECTION) {
-        const status = JSON.stringify(
-          JSON.parse(fs.readFileSync("./status.json"))
-        );
-        console.log(status);
-        sock.cork();
-        sock.write(status + "\n");
-        process.nextTick(() => {
-          sock.uncork();
-        });
-      } else {
-        console.log("[-]Changes to be committed");
-      }
-    }
-  );
-});
+// const socket = net.createServer();
+// socket.listen(SOCKPORT, IP, () => {
+//   console.log(`Waiting for Controller on ${IP}:${SOCKPORT}`);
+// });
+
+// socket.maxConnections = 1;
+
+// socket.on("connection", (sock) => {
+//   sock.setKeepAlive(true, 1000);
+//   sock.setNoDelay(true);
+//   console.log("[+] Controller Connected");
+//   const unsetConnection = (event) => {
+//     console.log(`[${event}] Controller closed connection`);
+//     CONNECTION = false;
+//   };
+//   sock.on("close", unsetConnection);
+//   sock.on("error", unsetConnection);
+//   sock.on("end", unsetConnection);
+//   const syncData = JSON.stringify(JSON.parse(fs.readFileSync("./status.json")));
+//   sock.on("data", (data) => {
+//     sock.write("sync");
+//     fs.writeFileSync("./status.json", syncData);
+//     console.log(data);
+//   });
+//   CONNECTION = true;
+//   sock.write(syncData + "\n");
+//   fs.watchFile(
+//     "./status.json",
+//     { bigint: false, persistent: true, interval: 1000 },
+//     (curr, prev) => {
+//       console.log("[*]State change detected, Commiting changes to controller");
+//       if (CONNECTION) {
+//         const status = JSON.stringify(
+//           JSON.parse(fs.readFileSync("./status.json"))
+//         );
+//         console.log(status);
+//         sock.cork();
+//         sock.write(status + "\n");
+//         process.nextTick(() => {
+//           sock.uncork();
+//         });
+//       } else {
+//         console.log("[-]Changes to be committed");
+//       }
+//     }
+//   );
+// });
 
 setInterval(() => {
   const status = JSON.parse(fs.readFileSync("./status.json"));
@@ -137,6 +142,16 @@ setInterval(() => {
 //     fs.writeFileSync("./status.json", JSON.stringify(status));
 //   }
 // );
+
+let interval = null;
+
+app.get("/sync", (req, res) => {
+  CONNECTION = true;
+  const currStatus = JSON.parse(fs.readFileSync("./status.json"));
+  clearInterval(interval);
+  interval = setInterval(toggleConnection, 30000);
+  res.send(currStatus);
+});
 
 app.get("/", (req, res) => {
   const config = JSON.parse(fs.readFileSync("./settings.json"));
@@ -209,6 +224,6 @@ const credentials = {
 };
 
 const server = https.createServer(credentials, app);
-server.listen(PORT, () => {
+server.listen(PORT, IP, () => {
   console.log(`listening on ${IP}:${PORT}`);
 });
