@@ -17,7 +17,7 @@ app.use(express.json());
 
 let CONNECTION = false;
 const PORT = 3000;
-const IP = ip.address();
+const IP = "0.0.0.0";
 
 const toggleConnection = () => {
   CONNECTION = false;
@@ -195,9 +195,16 @@ app.get("/manual", (req, res) => {
 
 app.post("/edit", (req, res) => {
   const settings = JSON.parse(fs.readFileSync("./settings.json"));
+  const status = JSON.parse(fs.readFileSync("./status.json"));
+  if (req.body.mode) {
+    status.mode = req.body.mode;
+    settings.mode = req.body.mode;
+    fs.writeFileSync("./status.json", JSON.stringify(status));
+  }
   settings.filter = req.body.filter;
   settings.light = req.body.light;
   settings.co2 = req.body.co2;
+
   settings.filter.manual = settings.filter.manual;
   settings.light.manual = settings.light.manual;
   settings.co2.manual = settings.co2.manual;
