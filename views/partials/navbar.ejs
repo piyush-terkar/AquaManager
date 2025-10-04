@@ -57,7 +57,7 @@
               aria-expanded="false"
             >
               QuickActions <% if(config.filter.manual || config.light.manual ||
-              config.pump.manual){ %>
+              config.co2.manual){ %>
               <div
                 class="rounded-pill p-1"
                 style="background-color: lightcoral; display: inline"
@@ -107,8 +107,9 @@
                 <% } %>
               </li>
               <li class="dropdown-item">
-                <a class="text-dark" href="/manual?q=pump">Circulation</a>
-                <% if(config.pump.manual ){ %>
+                <a class="text-dark"
+                  href="/manual?q=co2">CO2</a>
+                <% if(config.co2.manual ){ %>
                 <div
                   class="mx-auto rounded-pill p-1"
                   style="background-color: lightcoral; display: inline"
@@ -122,7 +123,10 @@
                 >
                   Auto
                 </div>
-                <% } %> <% if(currStatus.pump == false){ %>
+                <% }
+                  %>
+                  <% if(currStatus.co2==false){
+                    %>
                 <div
                   class="mx-auto rounded-pill p-1"
                   style="background-color: lightcoral; display: inline"

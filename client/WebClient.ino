@@ -26,15 +26,15 @@ char server[] = "192.168.1.14";
 WiFiEspClient client;
 int filter = 8;
 int light = 9;
-int pump = 10;
+int co2 = 10;
 void setup()
 {
   pinMode(filter, OUTPUT);
   digitalWrite(filter, HIGH);
   pinMode(light, OUTPUT);
   digitalWrite(light, HIGH);
-  pinMode(pump, OUTPUT);
-  digitalWrite(pump, HIGH);
+  pinMode(co2, OUTPUT);
+  digitalWrite(co2, HIGH);
 
   // initialize serial for debugging
   Serial.begin(115200);
@@ -97,7 +97,7 @@ void loop()
       Serial.println(message);
       boolean filterStatus = doc["filter"];
       boolean lightStatus = doc["light"];
-      boolean pumpStatus = doc["pump"];
+      boolean co2Status = doc["co2"];
       if (filterStatus)
       {
         digitalWrite(filter, LOW);
@@ -114,13 +114,13 @@ void loop()
       {
         digitalWrite(light, HIGH);
       }
-      if (pumpStatus)
+      if (co2Status)
       {
-        digitalWrite(pump, LOW);
+        digitalWrite(co2, LOW);
       }
       else
       {
-        digitalWrite(pump, HIGH);
+        digitalWrite(co2, HIGH);
       }
     }
   }

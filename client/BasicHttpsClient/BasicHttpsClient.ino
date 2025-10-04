@@ -19,15 +19,15 @@
 ESP8266WiFiMulti WiFiMulti;
 int filter = D5;
 int light = D6;
-int pump = D7;
+int co2 = D7;
 void setup() {
 
   pinMode(filter, OUTPUT);
   digitalWrite(filter, HIGH);
   pinMode(light, OUTPUT);
   digitalWrite(light, HIGH);
-  pinMode(pump, OUTPUT);
-  digitalWrite(pump, HIGH);
+  pinMode(co2, OUTPUT);
+  digitalWrite(co2, HIGH);
 
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
@@ -80,7 +80,7 @@ void loop() {
       Serial.println(message);
       boolean filterStatus = doc["filter"];
       boolean lightStatus = doc["light"];
-      boolean pumpStatus = doc["pump"];
+      boolean co2Status = doc["co2"];
       if (filterStatus)
       {
         digitalWrite(filter, LOW);
@@ -97,13 +97,13 @@ void loop() {
       {
         digitalWrite(light, HIGH);
       }
-      if (pumpStatus)
+      if (co2Status)
       {
-        digitalWrite(pump, LOW);
+        digitalWrite(co2, LOW);
       }
       else
       {
-        digitalWrite(pump, HIGH);
+        digitalWrite(co2, HIGH);
       }
     }
         }

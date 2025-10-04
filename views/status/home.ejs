@@ -84,8 +84,10 @@
       </tr>
       <tr>
         <th scope="row">3</th>
-        <td>Circulation</td>
-        <% if (currStatus.pump){ %>
+        <td>CO2</td>
+        <% if
+          (currStatus.co2){
+          %>
         <td>
           <div
             class="rounded-pill text-dark"
@@ -104,12 +106,23 @@
           </div>
         </td>
         <% } %>
-        <td><%= config.pump.start %></td>
-        <td><%= config.pump.end %></td>
+        <td>
+          <%= config.co2.start
+            %>
+        </td>
+        <td>
+          <%= config.co2.end
+            %>
+        </td>
       </tr>
     </tbody>
   </table>
-  <% if(config.filter.manual || config.light.manual || config.pump.manual){ %>
+  <% if(config.filter.manual
+    ||
+    config.light.manual
+    ||
+    config.co2.manual){
+    %>
   <h3>Manual Override:</h3>
   <hr />
   <table class="table table-dark table-striped-columns table-hover">
@@ -167,8 +180,9 @@
       </tr>
       <tr>
         <td>3</td>
-        <td>Circulation</td>
-        <% if(config.pump.manual){ %>
+        <td>CO2</td>
+        <% if(config.co2.manual){
+          %>
         <td>
           <div
             class="rounded-pill text-dark"

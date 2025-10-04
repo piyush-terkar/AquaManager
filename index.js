@@ -106,12 +106,12 @@ setInterval(() => {
       console.log("[*]" + currtime);
     }
     if (
-      status.pump !=
-        (settings.pump.start <= currtime && settings.pump.end >= currtime) &&
-      !settings.pump.manual
+      status.co2 !=
+      (settings.co2.start <= currtime && settings.co2.end >= currtime) &&
+      !settings.co2.manual
     ) {
-      status.pump =
-        settings.pump.start <= currtime && settings.pump.end >= currtime;
+      status.co2 =
+        settings.co2.start <= currtime && settings.co2.end >= currtime;
       isChanged = true;
     }
     if (isChanged) {
@@ -136,8 +136,8 @@ setInterval(() => {
 //       settings.filter.start <= currtime && settings.filter.end >= currtime;
 //     status.light =
 //       settings.light.start <= currtime && settings.light.end >= currtime;
-//     status.pump =
-//       settings.pump.start <= currtime && settings.pump.end >= currtime;
+//     status.co2 =
+//       settings.co2.start <= currtime && settings.co2.end >= currtime;
 //     console.log(status);
 //     fs.writeFileSync("./status.json", JSON.stringify(status));
 //   }
@@ -178,13 +178,13 @@ app.get("/manual", (req, res) => {
       status.filter = !status.filter;
       config.filter.manual = true;
     }
-    if (req.query.q == "pump") {
-      status.pump = !status.pump;
-      config.pump.manual = true;
+    if (req.query.q == "co2") {
+      status.co2 = !status.co2;
+      config.co2.manual = true;
     }
     if (req.query.q == "auto") {
       config.light.manual = false;
-      config.pump.manual = false;
+      config.co2.manual = false;
       config.filter.manual = false;
     }
   }
@@ -197,10 +197,10 @@ app.post("/edit", (req, res) => {
   const settings = JSON.parse(fs.readFileSync("./settings.json"));
   settings.filter = req.body.filter;
   settings.light = req.body.light;
-  settings.pump = req.body.pump;
+  settings.co2 = req.body.co2;
   settings.filter.manual = settings.filter.manual;
   settings.light.manual = settings.light.manual;
-  settings.pump.manual = settings.pump.manual;
+  settings.co2.manual = settings.co2.manual;
   fs.writeFileSync("./settings.json", JSON.stringify(settings));
   res.redirect("/");
 });
@@ -210,7 +210,7 @@ app.post("/maintainance", async (req, res) => {
     settings.maintainance = true;
     settings.filter = false;
     settings.light = false;
-    settings.pump = false;
+    settings.co2 = false;
   } else {
     settings.maintainance = false;
   }
